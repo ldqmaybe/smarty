@@ -1,0 +1,39 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    defaultConfig {
+        applicationId "com.smart.smarty"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    testImplementation rootProject.ext.dependencies.testDependencies
+    androidTestImplementation rootProject.ext.dependencies.androidTestImplementation
+    implementation rootProject.ext.dependencies.publicDependencies
+    annotationProcessor project(path: ':anotation_compiler')
+    rootProject.ext.dependencies.commonModuleDependencies.each {
+        implementation project(it)
+    }
+    if (!rootProject.ext.android.isApplication) {
+        implementation project(path: ':main')
+        implementation project(path: ':login')
+        implementation project(path: ':member')
+    }
+}

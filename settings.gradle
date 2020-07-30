@@ -1,0 +1,10 @@
+include ':main'
+include ':anotation_compiler'
+include ':anotation'
+include ':router'
+include ':common'
+include ':basic'
+include ':member'
+include ':login'
+include ':app'
+rootProject.name = "Smarty"
